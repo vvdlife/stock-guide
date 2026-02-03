@@ -30,6 +30,7 @@ const Header = ({ onOpenAI, isScrolled }: HeaderProps) => {
                     <a href="#comparison" className="hover:text-yellow-600 transition-colors">시장 비교</a>
                     <a href="#market-detail" className="hover:text-yellow-600 transition-colors">국장/미장 상세</a>
                     <a href="#glossary" className="hover:text-yellow-600 transition-colors">용어 사전</a>
+                    <a href="#resources" className="hover:text-yellow-600 transition-colors">자료실</a>
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -50,6 +51,7 @@ const Header = ({ onOpenAI, isScrolled }: HeaderProps) => {
                     <a href="#comparison" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">시장 비교</a>
                     <a href="#market-detail" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">국장/미장 상세</a>
                     <a href="#glossary" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">용어 사전</a>
+                    <a href="#resources" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">자료실</a>
                     <button
                         onClick={() => {
                             setIsMobileMenuOpen(false);

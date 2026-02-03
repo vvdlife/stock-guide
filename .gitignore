@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+etc/
+.next/
+*.pdf

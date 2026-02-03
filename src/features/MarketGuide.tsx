@@ -6,6 +6,7 @@ import HeroSection from '@/components/features/HeroSection';
 import MarketComparison from '@/components/features/MarketComparison';
 import MarketDetail from '@/components/features/MarketDetail';
 import Glossary from '@/components/features/Glossary';
+import ResourceLibrary from '@/components/features/ResourceLibrary';
 import Footer from '@/components/layout/Footer';
 import FloatingAIButton from '@/components/ui/FloatingAIButton';
 import AITutorModal from '@/components/ui/AITutorModal';
@@ -34,6 +35,8 @@ const MarketGuide = () => {
             <MarketDetail />
 
             <Glossary />
+
+            <ResourceLibrary />
 
             <Footer />
 
