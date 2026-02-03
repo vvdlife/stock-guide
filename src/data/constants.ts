@@ -1,0 +1,37 @@
+export interface MarketComparisonItem {
+    label: string;
+    kr: string;
+    us: string;
+}
+
+export const MARKET_COMPARISON: MarketComparisonItem[] = [
+    { label: '거래 시간(한국기준)', kr: '09:00 - 15:30', us: '23:30 - 06:00 (서머타임 시 1시간 앞당김)' },
+    { label: '가격 제한폭', kr: '상하한가 ±30%', us: '제한 없음' },
+    { label: '결제 주기', kr: 'T+2 (2영업일 뒤)', us: 'T+1 (미국 기준)' },
+    { label: '세금', kr: '거래세 0.15% / 양도세(대주주)', us: '수익 250만원 초과 시 양도세 22%' },
+];
+
+export interface GlossaryItem {
+    term: string;
+    desc: string;
+}
+
+export const GLOSSARY: GlossaryItem[] = [
+    { term: 'EPS (주당순이익)', desc: '회사가 벌어들인 순이익을 주식 1주로 나눈 값. 수익성의 핵심 지표입니다.' },
+    { term: '가이던스 (Guidance)', desc: '기업이 전망하는 다음 분기 실적 예상치. 주가의 미래 가치를 결정합니다.' },
+    { term: '컨센서스', desc: '증권사 애널리스트들의 실적 전망 평균치. 실제 실적과의 차이가 중요합니다.' },
+    { term: '사이드카', desc: '선물 가격 급변 시 프로그램 매매를 5분간 정지시켜 시장 충격을 완화하는 장치입니다.' },
+    { term: '상한가/하한가', desc: '하루 동안 주가가 오르거나 내릴 수 있는 최대한도(±30%). 한국 시장의 안전장치입니다.' },
+    { term: '서킷브레이커', desc: '지수가 급락할 때 시장 전체의 매매를 일시 중단하여 패닉을 막는 제도입니다.' },
+];
+
+export interface OrderTypeItem {
+    title: string;
+    desc: string;
+}
+
+export const ORDER_TYPES: OrderTypeItem[] = [
+    { title: '지정가 주문', desc: '내가 원하는 가격을 직접 정해놓고 대기하는 방식.' },
+    { title: '시장가 주문', desc: '가격을 따지지 않고 즉시 체결하는 방식 (가장 빠름).' },
+    { title: '조건부 지정가', desc: '장중에는 지정가로, 마감 시에는 시장가로 전환.' },
+];
