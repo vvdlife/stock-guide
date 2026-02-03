@@ -1,0 +1,4 @@
+[Stock Basics]
+Stocks represent ownership in a company.
+Market Cap = Share Price * Total Shares.
+Dividends are a portion of profits paid to shareholders.
