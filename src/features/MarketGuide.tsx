@@ -5,12 +5,17 @@ import Header from '@/components/layout/Header';
 import HeroSection from '@/components/features/HeroSection';
 import MarketComparison from '@/components/features/MarketComparison';
 import MarketDetail from '@/components/features/MarketDetail';
-import Glossary from '@/components/features/Glossary';
 import Footer from '@/components/layout/Footer';
 import FloatingAIButton from '@/components/ui/FloatingAIButton';
 import AITutorModal from '@/components/ui/AITutorModal';
+import TermOfTheDayWidget from '@/components/features/TermOfTheDay';
+import { GlossaryTerm } from '@/lib/glossary-parser';
 
-const MarketGuide = () => {
+interface MarketGuideProps {
+    initialTerm: GlossaryTerm | null;
+}
+
+const MarketGuide = ({ initialTerm }: MarketGuideProps) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isAIModalOpen, setIsAIModalOpen] = useState(false);
 
@@ -29,11 +34,13 @@ const MarketGuide = () => {
 
             <HeroSection onOpenAI={() => setIsAIModalOpen(true)} />
 
+            <div className="container mx-auto px-6 -mt-10 relative z-10 mb-20">
+                <TermOfTheDayWidget term={initialTerm} />
+            </div>
+
             <MarketComparison />
 
             <MarketDetail />
-
-            <Glossary />
 
             <Footer />
 

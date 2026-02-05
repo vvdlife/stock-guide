@@ -27,9 +27,10 @@ const Header = ({ onOpenAI, isScrolled }: HeaderProps) => {
                 </div>
 
                 <div className="hidden md:flex gap-8 text-sm font-medium">
-                    <a href="#comparison" className="hover:text-yellow-600 transition-colors">시장 비교</a>
-                    <a href="#market-detail" className="hover:text-yellow-600 transition-colors">국장/미장 상세</a>
-                    <a href="#glossary" className="hover:text-yellow-600 transition-colors">용어 사전</a>
+                    <Link href="/#comparison" className="hover:text-yellow-600 transition-colors">시장 비교</Link>
+                    <Link href="/#market-detail" className="hover:text-yellow-600 transition-colors">국장/미장 상세</Link>
+                    <Link href="/learn" className="hover:text-yellow-600 transition-colors">경제 배움터</Link>
+                    <Link href="/glossary" className="hover:text-yellow-600 transition-colors">용어 사전</Link>
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -47,9 +48,10 @@ const Header = ({ onOpenAI, isScrolled }: HeaderProps) => {
 
             {isMobileMenuOpen && (
                 <div className="absolute top-0 left-0 w-full h-screen bg-white flex flex-col items-center justify-center gap-8 md:hidden shadow-lg animate-in fade-in slide-in-from-top-5 duration-200">
-                    <a href="#comparison" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">시장 비교</a>
-                    <a href="#market-detail" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">국장/미장 상세</a>
-                    <a href="#glossary" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">용어 사전</a>
+                    <Link href="/#comparison" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">시장 비교</Link>
+                    <Link href="/#market-detail" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">국장/미장 상세</Link>
+                    <Link href="/learn" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">경제 배움터</Link>
+                    <Link href="/glossary" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-bold hover:text-yellow-600">용어 사전</Link>
                     <button
                         onClick={() => {
                             setIsMobileMenuOpen(false);
