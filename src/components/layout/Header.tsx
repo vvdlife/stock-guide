@@ -23,7 +23,7 @@ const Header = ({ onOpenAI, isScrolled }: HeaderProps) => {
                     <div className="bg-slate-900 text-white p-1.5 rounded-lg">
                         <TrendingUp size={20} />
                     </div>
-                    <span className="font-bold text-xl tracking-tight">UPPITY Stock Guide</span>
+                    <span className="font-bold text-xl tracking-tight">Stock Guide</span>
                 </div>
 
                 <div className="hidden md:flex gap-8 text-sm font-medium">

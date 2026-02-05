@@ -19,7 +19,7 @@ const Footer = () => {
                     </button>
                 </div>
                 <div className="mt-20 pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
-                    <p>© 2025 UPPITY All Rights Reserved.</p>
+                    <p>© 2025 Stock Guide All Rights Reserved.</p>
                     <div className="flex gap-6">
                         <a href="#" className="hover:text-slate-600">이용약관</a>
                         <a href="#" className="hover:text-slate-600">개인정보처리방침</a>
