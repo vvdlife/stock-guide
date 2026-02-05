@@ -3,16 +3,16 @@ import { getKnowledgeContext } from '@/lib/knowledge';
 
 export async function POST(req: Request) {
     try {
-        const { query } = await req.json();
+        const { query, apiKey: userKey } = await req.json();
 
         if (!query) {
             return NextResponse.json({ error: 'Query is required' }, { status: 400 });
         }
 
-        const apiKey = process.env.GEMINI_API_KEY;
+        const apiKey = userKey || process.env.GEMINI_API_KEY;
 
         if (!apiKey) {
-            return NextResponse.json({ error: 'API Key is missing' }, { status: 500 });
+            return NextResponse.json({ error: 'API Key is missing' }, { status: 400 });
         }
 
         // 1. Load Knowledge Base

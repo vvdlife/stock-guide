@@ -8,10 +8,34 @@ interface AITutorModalProps {
 }
 
 const AITutorModal = ({ onClose }: AITutorModalProps) => {
+    const [apiKey, setApiKey] = useState('');
+    const [isKeySaved, setIsKeySaved] = useState(false);
     const [query, setQuery] = useState('');
     const [answer, setAnswer] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+
+    React.useEffect(() => {
+        const storedKey = localStorage.getItem('gemini_api_key');
+        if (storedKey) {
+            setApiKey(storedKey);
+            setIsKeySaved(true);
+        }
+    }, []);
+
+    const handleSaveKey = () => {
+        if (!apiKey.trim()) return;
+        localStorage.setItem('gemini_api_key', apiKey);
+        setIsKeySaved(true);
+    };
+
+    const handleClearKey = () => {
+        localStorage.removeItem('gemini_api_key');
+        setApiKey('');
+        setIsKeySaved(false);
+        setAnswer('');
+        setError('');
+    };
 
     const handleAsk = async () => {
         if (!query.trim()) return;
@@ -21,13 +45,13 @@ const AITutorModal = ({ onClose }: AITutorModalProps) => {
         setError('');
 
         try {
-            // Call Next.js API Route
+            // Call Next.js API Route with Custom API Key
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ query }),
+                body: JSON.stringify({ query, apiKey }),
             });
 
             if (!response.ok) {
@@ -38,7 +62,7 @@ const AITutorModal = ({ onClose }: AITutorModalProps) => {
             const data = await response.json();
             setAnswer(data.text);
         } catch (err) {
-            setError("죄송합니다. 답변을 가져오는 중에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+            setError("오류가 발생했습니다. API 키가 정확한지 확인해주세요.");
             console.error(err);
         } finally {
             setIsLoading(false);
@@ -52,6 +76,56 @@ const AITutorModal = ({ onClose }: AITutorModalProps) => {
         }
     };
 
+    if (!isKeySaved) {
+        return (
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 animate-in fade-in duration-200">
+                <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl p-8">
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center gap-2">
+                            <Sparkles className="text-yellow-400" />
+                            <h3 className="font-bold text-lg">API 키 입력</h3>
+                        </div>
+                        <button onClick={onClose} className="hover:bg-slate-100 p-2 rounded-full transition-colors">
+                            <X size={20} />
+                        </button>
+                    </div>
+
+                    <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                        AI 튜터를 이용하기 위해서는<br />
+                        <span className="font-bold text-slate-900">Google Gemini API 키</span>가 필요합니다.<br />
+                        키는 브라우저에만 저장되며 서버에 남지 않습니다.
+                    </p>
+
+                    <input
+                        type="password"
+                        value={apiKey}
+                        onChange={(e) => setApiKey(e.target.value)}
+                        placeholder="AIzaSy..."
+                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+
+                    <div className="flex justify-end gap-2">
+                        <a
+                            href="https://aistudio.google.com/app/apikey"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl text-sm font-medium hover:bg-slate-200 transition-colors"
+                        >
+                            키 발급받기
+                        </a>
+                        <button
+                            onClick={handleSaveKey}
+                            disabled={!apiKey.trim()}
+                            className="bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors"
+                        >
+                            시작하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 animate-in fade-in duration-200">
             <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
@@ -59,11 +133,16 @@ const AITutorModal = ({ onClose }: AITutorModalProps) => {
                 <div className="bg-slate-900 p-6 flex justify-between items-center text-white">
                     <div className="flex items-center gap-2">
                         <Sparkles className="text-yellow-400" />
-                        <h3 className="font-bold text-lg">AI 투자 튜터에게 물어보세요</h3>
+                        <h3 className="font-bold text-lg">AI 투자 튜터</h3>
                     </div>
-                    <button onClick={onClose} className="hover:bg-slate-800 p-1 rounded-full transition-colors">
-                        <X size={24} />
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <button onClick={handleClearKey} className="text-xs text-slate-400 hover:text-white underline px-2">
+                            키 변경
+                        </button>
+                        <button onClick={onClose} className="hover:bg-slate-800 p-1 rounded-full transition-colors">
+                            <X size={24} />
+                        </button>
+                    </div>
                 </div>
 
                 {/* Content Area */}
@@ -71,7 +150,7 @@ const AITutorModal = ({ onClose }: AITutorModalProps) => {
                     {!answer && !isLoading && !error && (
                         <div className="text-center text-slate-400 py-10">
                             <MessageCircle size={48} className="mx-auto mb-4 opacity-20" />
-                            <p>궁금한 주식 용어나 개념을 입력해주세요.<br />Gemini가 친절하게 설명해드립니다!</p>
+                            <p>궁금한 주식 용어나 개념을 입력해주세요.<br />개인 API 키로 동작합니다.</p>
                             <div className="mt-6 flex flex-wrap justify-center gap-2">
                                 {["PER이 뭔가요?", "공매도 쉽게 설명해줘", "ETF 장점이 뭐야?"].map((q) => (
                                     <button
@@ -140,3 +219,5 @@ const AITutorModal = ({ onClose }: AITutorModalProps) => {
 };
 
 export default AITutorModal;
+
+
