@@ -48,8 +48,11 @@ export async function POST(req: Request) {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('Gemini API Error:', errorData);
-            return NextResponse.json({ error: 'Gemini API call failed' }, { status: response.status });
+            console.error('Gemini API Error details:', JSON.stringify(errorData, null, 2));
+            return NextResponse.json({
+                error: `Gemini API call failed: ${errorData.error?.message || response.statusText}`,
+                details: errorData
+            }, { status: response.status });
         }
 
         const data = await response.json();
@@ -60,8 +63,11 @@ export async function POST(req: Request) {
         }
 
         return NextResponse.json({ text });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Server Error:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json({
+            error: 'Internal Server Error',
+            details: error.message
+        }, { status: 500 });
     }
 }
